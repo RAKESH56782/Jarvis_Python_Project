@@ -1,6 +1,5 @@
 #####jarvis Assistent
 ####Import Libraries
-#jarvis
 import pyttsx3 #pip install pyttsx3
 import datetime
 import sys
@@ -16,7 +15,7 @@ import pyautogui
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 
-
+###3 Function defined here
 def speak(audio, lang= 'en'):
     # Select a female voice based on the index
     # Set the language for the voice
@@ -132,7 +131,7 @@ def houru():
     speak("I'm good. What about you sir?")
 
 if __name__ == "__main__":
-    #wishme()
+    wishme()
     while True:
         query = takeCommand().lower()
         if 'time' in query:
@@ -185,12 +184,12 @@ if __name__ == "__main__":
             except Exception as e:
                 print("I can't open now, plesase try again...")
                 speak("I can't open now, plesase try again...")    
-        #elif 'logout' in query:
-        #    os.system("shutdown -l")
-        #elif 'shutdown' in query:
-        #    os.system("shutdown /r /t 1")
-        #elif 'restart' in query:
-        #    os.system("shutdown /r /t 1") 
+        elif 'logout' in query:
+            os.system("shutdown -l")
+        elif 'shutdown' in query:
+            os.system("shutdown /r /t 1")
+        elif 'restart' in query:
+            os.system("shutdown /r /t 1") 
         elif 'play songs' in query:
             speak("OK sir, opening a playlist...")
             songs_dir = 'D:\Music'
