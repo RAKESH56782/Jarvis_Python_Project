@@ -1,0 +1,13 @@
+## install this packages and import them
+pyttsx3 #pip install pyttsx3
+import datetime
+import sys
+import wikipedia
+import speech_recognition as sr
+import smtplib
+import webbrowser as wb
+import os
+import psutil
+import pyjokes
+import random
+import pyautogui
