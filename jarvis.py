@@ -1,5 +1,6 @@
 #####jarvis Assistent
 ####Import Libraries
+#jarvis
 import pyttsx3 #pip install pyttsx3
 import datetime
 import sys
@@ -10,7 +11,8 @@ import webbrowser as wb
 import os
 import psutil
 import pyjokes
-
+import random
+import pyautogui
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 
@@ -120,12 +122,14 @@ def jokes():
     speak(pyjokes.get_joke())
 
 def thanks():
-    speak("You're welcome!")
+    speak("You're welcome sir!")
 #thanks()
 
 def hello():       
-    speak("Hello! I'm doing great. How about you?")
+    speak("Hello!, How can i help you sir?")
 #hello()
+def houru():       
+    speak("I'm good. What about you sir?")
 
 if __name__ == "__main__":
     #wishme()
@@ -139,8 +143,12 @@ if __name__ == "__main__":
             introduce()
         elif 'thanks' in query or 'thank you' in query:
             thanks()
-        elif 'hello' in query or 'how are you' in query:
+        elif 'hello' in query:
             hello()
+        elif 'how are you' in query: 
+            houru() 
+        elif 'good' in query: 
+            speak("Glad to hear that sir!")     
         elif 'wikipedia' in query:
             speak("Searching...") 
             query = query.replace("wikipedia", "")
@@ -158,11 +166,25 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Unable to send the email") 
-        elif 'search in chrome' in query:
-            speak("what should i search?")
-            chromepath = 'C:\Program Files\Google\Chrome\Application/chrome.exe %s'
-            search = takeCommand().lower() 
-            wb.get(chromepath).open_new_tab(search+'.com')
+        elif 'open chrome' in query:
+            chromePath = 'C:\Program Files\Google\Chrome\Application/chrome.exe'
+            os.startfile(chromePath)
+        elif 'open youtube' in query:
+            wb.open("youtube.com")
+        elif 'open google' in query:
+            wb.open("google.com")             
+        elif 'search on chrome' in query:
+            try:
+                print("what should i search?")
+                speak("what should i search?")
+                chromePath = 'C:\Program Files\Google\Chrome\Application/chrome.exe %s'
+                query = takeCommand().lower() 
+                wb.open(chromePath).open_new_tab(query)
+                print(query)
+                speak(query)
+            except Exception as e:
+                print("I can't open now, plesase try again...")
+                speak("I can't open now, plesase try again...")    
         #elif 'logout' in query:
         #    os.system("shutdown -l")
         #elif 'shutdown' in query:
@@ -173,7 +195,33 @@ if __name__ == "__main__":
             speak("OK sir, opening a playlist...")
             songs_dir = 'D:\Music'
             songs = os.listdir(songs_dir)
-            os.startfile(os.path.join(songs_dir, songs[0]))               
+            x= len(songs)
+            y= random.randint(0,x)
+            os.startfile(os.path.join(songs_dir, songs[y]))
+        elif 'stop songs' in query:
+            os.system("taskkill /im vlc.exe")
+            speak("Stopping the current song.")
+        elif 'next song' in query:
+            speak("OK sir, playling next song...")
+            songs_dir = 'D:\Music'
+            songs = os.listdir(songs_dir)
+            x= len(songs)
+            y = random.randint(0, x)
+            current_song = os.path.join(songs_dir, songs[y])
+            os.startfile(current_song)
+            speak("Playing the next song")    
+        elif 'volume up' in query or 'increase volume' in query:
+            pyautogui.press("volumeup")
+            speak("volume increased")
+        elif 'volume down' in query or 'decrease volume' in query:
+            pyautogui.press("volumedown")
+            speak("volume decreased")
+        elif 'volume mute' in query or 'mute the sound' in query:
+            pyautogui.press("volumemute")
+            speak("volume muted")
+        elif 'volume unmute' in query or 'unmute the sound' in query:
+            pyautogui.press("volumemute")
+            speak('volume unmuted')    
         elif 'remember that' in query:
             speak("What should i remember?")
             data = takeCommand()
@@ -191,4 +239,3 @@ if __name__ == "__main__":
         elif 'ofline' in query:
             quit()
         
-
